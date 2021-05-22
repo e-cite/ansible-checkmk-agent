@@ -1,0 +1,3 @@
+---
+checkmk_agent__default_package:
+  "{{ checkmk_agent__agent_debian_10_download_URL }}"

@@ -1,0 +1,3 @@
+---
+checkmk_agent__package: "{{ checkmk_agent__default_package }}"
+checkmk_agent__package_state: "present"
