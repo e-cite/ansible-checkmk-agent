@@ -10,10 +10,10 @@ Es muss ein Checkmk-Server zum Download der DEB-Pakete bereitstehen.
 
 - `checkmk_agent__agent_debian_10_download_URL`: (*Erforderlich*)
 
-  Download-URL des Checkmk-Agent für Debian 10 von lokalem Server.
+  Download-URL des Checkmk-Agent für Debian von lokalem Server.
   ~~~yaml
   # Beispiel:
-  checkmk_agent__agent_debian_10_download_URL:
+  checkmk_agent__agent_debian_download_URL:
     "http://<IP/FQDN>/<SITE>/check_mk/agents/check-mk-agent.deb"
   ~~~
 
