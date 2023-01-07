@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+
+{% for item in checkmk_agent__logwatch %}
+"{{ item['logfile'] }}"
+{%   for check in item['checks'] %}
+ {{ check }}
+{%   endfor %}
+{% endfor %}

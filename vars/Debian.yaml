@@ -1,3 +1,5 @@
 ---
 checkmk_agent__default_package:
   "{{ checkmk_agent__agent_debian_download_URL }}"
+checkmk_agent__default_dependencies:
+  - needrestart

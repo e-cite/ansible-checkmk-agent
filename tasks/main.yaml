@@ -7,3 +7,57 @@
   ansible.builtin.apt:
     deb: "{{ checkmk_agent__package }}"
     state: "{{ checkmk_agent__package_state }}"
+
+- name: Installiere Abhängigkeiten
+  ansible.builtin.apt:
+    name: "{{ checkmk_agent__dependencies }}"
+    state: present  # Kein variabler State, weil keine Deinstallation gewünscht!
+
+- name: Erstelle Verzeichnisse für Plugins
+  ansible.builtin.file:
+    name: /usr/lib/check_mk_agent/plugins/{{ item.cache_time }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ checkmk_agent__plugins }}"
+  when: item.cache_time is defined
+
+- name: Installiere Plugins
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: /usr/lib/check_mk_agent/plugins/{{ item.cache_time | default("") }}/{{ item.name }}
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ checkmk_agent__plugins }}"
+  when: item.name is defined
+
+- name: Plugin Konfiguration logwatch.cfg
+  ansible.builtin.template:
+    src: logwatch.j2
+    dest: /etc/check_mk/logwatch.cfg
+    owner: root
+    group: root
+    mode: 0644
+  when: checkmk_agent__logwatch | length > 0
+
+- name: Erstelle Verzeichnisse für lokale Checks
+  ansible.builtin.file:
+    name: /usr/lib/check_mk_agent/local/{{ item.cache_time }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ checkmk_agent__local_checks }}"
+  when: item.cache_time is defined
+
+- name: Kopiere lokale Checks
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: /usr/lib/check_mk_agent/local/{{ item.cache_time | default("") }}/{{ item.name }}
+    owner: root
+    group: root
+    mode: 0755
+  loop: "{{ checkmk_agent__local_checks }}"
+  when: item.name is defined

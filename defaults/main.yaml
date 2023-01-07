@@ -1,3 +1,7 @@
 ---
 checkmk_agent__package: "{{ checkmk_agent__default_package }}"
+checkmk_agent__dependencies: "{{ checkmk_agent__default_dependencies }}"
 checkmk_agent__package_state: "present"
+checkmk_agent__plugins: []
+checkmk_agent__logwatch: []
+checkmk_agent__local_checks: []
