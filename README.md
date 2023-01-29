@@ -7,6 +7,10 @@ Installiert einen Checkmk-Agent auf Debian-basierten Systemen.
 Es muss ein Checkmk-Server zum Download der DEB-Pakete, Plugins und lokalen
 Checks bereitstehen.
 
+Für korrekt funktionierende Needrestart-Checks muss das DEB-Paket `iucode-tool`
+aus dem Repository "contrib" installiert sein. Nach der Installation muss das
+System neu gestartet werden.
+
 ## Variablen
 
 - `checkmk_agent__agent_debian_download_URL`: (*Erforderlich*)
