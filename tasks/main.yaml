@@ -12,6 +12,12 @@
     name: "{{ checkmk_agent__dependencies }}"
     state: present  # Kein variabler State, weil keine Deinstallation gewünscht!
 
+- name: Lösche Plugin-Verzeichnisse für Neuinstallation
+  ansible.builtin.file:
+    name: /usr/lib/check_mk_agent/plugins/
+    state: absent
+  tags: [ never, checkmk_agent__update_plugins ]
+
 - name: Erstelle Verzeichnisse für Plugins
   ansible.builtin.file:
     name: /usr/lib/check_mk_agent/plugins/{{ item.cache_time }}
